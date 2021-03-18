@@ -32,9 +32,12 @@ const Events = () => {
     fetchData();
   }, []);
 
+//   handleSubmit = (e) => {}
+
   return (
     <>
       <div>
+      <h3>What event would we like to check out?</h3>
         <form>
           <label>Title 
             <input
@@ -143,6 +146,7 @@ const Events = () => {
             </input>
           </label>
           <br/>
+          <button type="button">Let's Go!</button>
         </form>
       </div>
     </>

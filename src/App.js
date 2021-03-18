@@ -7,7 +7,6 @@ const App = () => {
   return (
     <>
       <h1>Eventonica</h1>
-      <p>What can we invite you to participate in?</p>
       <Events />
     </>
   );
