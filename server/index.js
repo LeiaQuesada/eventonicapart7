@@ -41,6 +41,28 @@ app.get('/event/:eventid', async ( req, res ) => {
     }
 })
 
+app.get('/users', async ( req, res ) => {
+    try {
+        const users = await db.any('SELECT * FROM users;', [true]);
+        console.log({ users });
+        res.json( users );
+    }
+    catch(e) {
+        console.log(e);
+    }
+})
+
+app.get('/user/:userid', async ( req, res ) => {
+    try {
+        const user = await db.any(`SELECT * FROM users WHERE userid = ${req.params.userid};`, [true]);
+        res.json( user[0] );
+    }
+    catch(e) {
+        res.status(500)
+        res.render('error', { error: e })
+    }
+})
+
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`);
 })
