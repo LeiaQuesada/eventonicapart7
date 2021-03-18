@@ -14,3 +14,18 @@ const cn = {
 };
 
 const db = pgp(cn);
+
+app.get('/events', async ( req, res ) => {
+    try {
+        const events = await db.any('SELECT * FROM events;', [true]);
+        console.log({ events });
+        res.json({ events: events });
+    }
+    catch(e) {
+        console.log(e);
+    }
+})
+
+app.listen(port, () => {
+    console.log(`Listening at http://localhost:${port}`);
+})
