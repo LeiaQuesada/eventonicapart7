@@ -1,34 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import Events from './components/Events';
 
-function App() {
-  const [ title, setTitle ] = useState('');
-  
-  useEffect(async () => {
-    try {
-      let res = await fetch('http://localhost:3001/event/1');
-      let event = await res.json();
-      setTitle(event.title);
-    } catch (e) {
-      //TODO: handle error
-    }
-  }, []);
 
+const App = () => {
   return (
     <>
-      <div>
-        <label>Title 
-          <form>
-            <input
-              value={title}
-              type="text"
-            >
-            </input>
-          </form>
-        </label>
-       
-      </div>
+      <h1>Eventonica</h1>
+      <p>What can we invite you to participate in?</p>
+      <Events />
     </>
   );
 }
