@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 const EventItem = (props) => {
   const { eventid, title, description } = props;
+  let history = useHistory();
 
-  const showEvents = (eventid) => {
+  const showEvent = (eventid) => {
     console.log(eventid);
-    // TODO: load edit screen for this events
+    history.push(`/editEvent`);
   };
 
   return (
     <div key="eventid">
       <h4>
-        <span onClick={() => showEvents(eventid)}>
-          <h3>Event: {title}</h3> <h2>Description: {description}</h2>
+        <span>
+          <h3>Event: {title}</h3>
+          <h4>Description: {description}</h4>
+          <button onClick={() => showEvent(eventid)}>Edit</button>
         </span>
       </h4>
     </div>

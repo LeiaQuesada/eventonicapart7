@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Events = () => {
+const EditEvent = () => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -154,4 +154,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default EditEvent;

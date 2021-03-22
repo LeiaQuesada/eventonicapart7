@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Users from "./components/Users";
 import Events from "./components/Events";
+import EditEvent from "./components/EditEvent";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
         </nav>
 
         <Switch>
+          <Route path="/editEvent">
+            <EditEvent />
+          </Route>
           <Route path="/events">
             <Events />
           </Route>
