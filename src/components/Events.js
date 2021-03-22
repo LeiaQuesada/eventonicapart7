@@ -17,6 +17,16 @@ const Events = () => {
       );
   }, []);
 
+  const removeEvent = (eventid) => {
+    let newEvents = [];
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].eventid !== eventid) {
+        newEvents.push(events[i]);
+      }
+    }
+    setEvents(newEvents);
+  };
+
   return (
     <>
       <h2>Events</h2>
@@ -28,6 +38,7 @@ const Events = () => {
             eventid={row.eventid}
             title={row.title}
             description={row.description}
+            onDeleteEvent={removeEvent}
           />
         );
       })}
