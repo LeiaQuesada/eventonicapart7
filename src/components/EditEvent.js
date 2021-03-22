@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const EditEvent = () => {
+const EditEvent = (props) => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -10,11 +11,13 @@ const EditEvent = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const { eventid } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        let res = await fetch("http://localhost:3001/event/1");
+        console.log(eventid);
+        let res = await fetch(`http://localhost:3001/event/${eventid}`);
         let event = await res.json();
         setTitle(event.title);
         setDate(event.date.slice(0, 10));
@@ -29,7 +32,7 @@ const EditEvent = () => {
         //TODO: handle error
       }
     }
-    fetchData();
+    fetchData(eventid);
   }, []);
 
   //   handleSubmit = (e) => {}

@@ -7,7 +7,7 @@ const EventItem = (props) => {
 
   const showEvent = (eventid) => {
     console.log(eventid);
-    history.push(`/editEvent`);
+    history.push(`/editEvent/${eventid}`);
   };
 
   return (

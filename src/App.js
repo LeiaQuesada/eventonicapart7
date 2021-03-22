@@ -25,7 +25,7 @@ const App = () => {
         </nav>
 
         <Switch>
-          <Route path="/editEvent">
+          <Route path="/editEvent/:eventid">
             <EditEvent />
           </Route>
           <Route path="/events">
