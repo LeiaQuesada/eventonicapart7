@@ -22,12 +22,13 @@ const db = pgp(cn);
 // create login route
 app.get("/login/:username", async (req, res) => {
   try {
-    const events = await db.any(
+    const users = await db.any(
       `SELECT * FROM users WHERE username = '${req.params.username}';`,
       [true]
     );
-    console.log({ username });
-    res.json(username);
+    let success = users.length >= 1 ? true : false;
+    console.log({ success });
+    res.json({ success: success });
   } catch (e) {
     console.log(e);
   }

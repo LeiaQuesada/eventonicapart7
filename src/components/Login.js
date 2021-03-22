@@ -1,32 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
+  let history = useHistory();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let res = await fetch(`http://localhost:3001/login/${username}`);
-        let user = await res.json();
-        setUsername(user.username);
-      } catch (e) {
-        console.error(e.message);
+  async function CheckLogin() {
+    try {
+      let res = await fetch(`http://localhost:3001/login/${username}`);
+      let resultObject = await res.json();
+      if (resultObject.success === true) {
+        history.push("/events");
+      } else {
+        alert("username not found");
       }
+    } catch (e) {
+      console.error(e.message);
     }
-    fetchData();
-  }, [username]);
+  }
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    return false;
+  };
 
   return (
     <>
       <h3>Velkommen! Please sign in!</h3>
-      <form>
+      <form onSubmit={submitForm}>
         <label>username: </label>
         <input
           value={username}
           type="text"
-          onChange={(e) => e.target.value}
+          onChange={(e) => {
+            e.preventDefault();
+            setUsername(e.target.value);
+          }}
         ></input>
-        <button onClick={() => setUsername({ username })}>Login</button>
+        <button onClick={CheckLogin}>Login</button>
       </form>
     </>
   );
