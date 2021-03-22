@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-const Users = () => {
+const Profile = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
     async function fetchData() {
       try {
-        let res = await fetch("http://localhost:3001/user/1");
-        let user = await res.json();
-        setUsername(user.username);
+        let res = await fetch(`http://localhost:3001/login/${username}`);
+        let resultObject = await res.json();
+        if (resultObject.success === true) {
+          alert(
+            `Are you sure you want to delete user ${username}? If not, hit go back`
+          );
+        } else {
+          alert("username not found");
+        }
       } catch (e) {
-        //TODO: handle error
+        console.error(e.message);
       }
     }
     fetchData();
@@ -18,7 +24,7 @@ const Users = () => {
 
   return (
     <>
-      <h3>Velkommen! Please sign in!</h3>
+      <h3>Edit Profile</h3>
       <form>
         <label>username</label>
         <input
@@ -32,4 +38,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Profile;
