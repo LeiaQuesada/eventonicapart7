@@ -9,7 +9,6 @@ const Events = () => {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
           setEvents(result);
         },
         (error) => {

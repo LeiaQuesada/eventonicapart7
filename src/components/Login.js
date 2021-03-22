@@ -7,6 +7,10 @@ const Login = () => {
 
   async function CheckLogin() {
     try {
+      if (!username) {
+        alert("Username cannot be empty");
+        return false;
+      }
       let res = await fetch(`http://localhost:3001/login/${username}`);
       let resultObject = await res.json();
       if (resultObject.success === true) {
