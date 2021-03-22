@@ -16,7 +16,6 @@ const EditEvent = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log(eventid);
         let res = await fetch(`http://localhost:3001/event/${eventid}`);
         let event = await res.json();
         setTitle(event.title);
@@ -29,13 +28,31 @@ const EditEvent = (props) => {
         setState(event.state);
         setZipcode(event.zipcode);
       } catch (e) {
-        //TODO: handle error
+        console.error(e.message);
       }
     }
     fetchData(eventid);
   }, []);
 
-  //   handleSubmit = (e) => {}
+  function updateEvent() {
+    fetch(`http://localhost:3001/event/${eventid}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ description: description }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          if (result.success) {
+            alert(result.message);
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }
 
   return (
     <>
@@ -150,7 +167,9 @@ const EditEvent = (props) => {
             ></input>
           </label>
           <br />
-          <button type="button">Let's Go!</button>
+          <button onClick={updateEvent} type="button">
+            Update
+          </button>
         </form>
       </div>
     </>

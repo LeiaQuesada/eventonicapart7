@@ -3,8 +3,9 @@ const app = express();
 const cors = require("cors");
 const port = 3001;
 
-// allow all CORS requests
+// middleware
 app.use(cors());
+app.use(express.json());
 
 //connect to postgres
 const pgp = require("pg-promise")({});
@@ -34,7 +35,7 @@ app.get("/login/:username", async (req, res) => {
   }
 });
 
-//create an event
+// create an event
 app.post("/event", async (req, res) => {
   try {
     const { description } = req.body;
@@ -74,29 +75,35 @@ app.get("/event/:eventid", async (req, res) => {
 });
 
 // update an event
-app.put("/events/:eventid", async (req, res) => {
+app.put("/event/:eventid", async (req, res) => {
   try {
     const { eventid } = req.params;
-    const { description } = req.params;
-    const updateEvent = await db.one(
-      "UPDATE events SET description = $1 WHERE eventid = $2",
-      [description, id]
-    );
-  } catch (err) {
-    console.error(err.message);
+    const { description } = req.body;
+    let updateQuery = `UPDATE events SET description='${description}' WHERE eventid=${eventid};`;
+    console.log(updateQuery);
+    const updateEvent = await db.any(updateQuery, []);
+    console.log("update query: " + updateEvent);
+    res.json({ success: true, message: "Event was saved!" });
+  } catch (e) {
+    res.status(500);
+    res.render("error", { error: e });
   }
 });
 
 // delete an event
-app.delete("/events/:eventid", async (req, res) => {
+app.delete("/event/:eventid", async (req, res) => {
   try {
-    const { id } = req.params;
-    const deleteEvent = await db.one("DELETE FROM events WHERE eventid = $1", [
-      id,
-    ]);
-    res.json("Event was deleted!");
-  } catch (err) {
-    console.error(err.message);
+    const { eventid } = req.params;
+    const deleteEvent = await db.one(
+      "DELETE FROM events WHERE eventid = $1 RETURNING *;",
+      eventid
+    );
+    console.log(deleteEvent);
+    res.json({ success: true, message: "Event was deleted!" });
+  } catch (e) {
+    console.error(e);
+    res.status(500);
+    res.render("error", { error: e });
   }
 });
 
