@@ -95,7 +95,7 @@ const EditEvent = (props) => {
               onChange={(e) => {
                 e.preventDefault();
                 setDate(e.target.value);
-              }}~
+              }}
             ></input>
             <br />
           </label>
