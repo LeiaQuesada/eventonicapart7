@@ -1,4 +1,14 @@
 import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import {
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+} from "reactstrap";
 import { useParams } from "react-router-dom";
 
 const EditEvent = (props) => {
@@ -57,19 +67,25 @@ const EditEvent = (props) => {
   return (
     <>
       <div>
-        <h3>What event would we like to check out?</h3>
-        <form>
-          <label>
-            Title
-            <input
-              value={title}
-              type="text"
-              onChange={(e) => {
-                e.preventDefault();
-                setTitle(e.target.value);
-              }}
-            ></input>
-          </label>
+        <h3>What event would we need to update?</h3>
+        <Form>
+          <FormGroup row>
+            <Label for="title" sm={2}>
+              Title
+            </Label>
+            <Col sm={10}>
+              <Input
+                name="email"
+                id="title"
+                value={title}
+                type="text"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setTitle(e.target.value);
+                }}
+              />
+            </Col>
+          </FormGroup>
           <br />
           <label>
             Date
@@ -170,7 +186,7 @@ const EditEvent = (props) => {
           <button onClick={updateEvent} type="button">
             Update
           </button>
-        </form>
+        </Form>
       </div>
     </>
   );
